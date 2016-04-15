@@ -1,0 +1,20 @@
+<% if !user_signed_in? %>
+  <div class="jumbotron">
+    <h1>Your Product To Lend</h1>
+    <p>Hashtag hoodie mumblecore selfies. Authentic keffiyeh leggings Kickstarter, narwhal jean shorts XOXO Vice Austin cardigan. Organic drinking vinegar freegan pickled.</p>
+    <p><%= link_to "Sign Up To Enjoy With Us", new_user_registration_path, class: "btn btn-primary btn-lg" %></p>
+  </div>
+<% end %>
+<div class="row">
+	<div class="col-md-3" id="sidebar_normal_user">
+			<h1>Categories Listing</h1>
+			<%@categories.each do |c| %>
+				<ul>
+				<li><%= link_to "#{c.name}",c %></li>
+				</ul>
+			<% end %>
+	</div>
+	<div class="col-md-9" id="main_content">
+		<%= render 'common/list_product' %>
+	</div>
+</div>

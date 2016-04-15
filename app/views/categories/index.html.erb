@@ -1,0 +1,11 @@
+<div class="row">
+ <% @categories.each do |category| %>
+    <div class="col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <%= link_to (image_tag (category.image.url(:medium)), class: 'image'), category_path(category) %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+  <div class="col-md-6 col-md-offset-4"> <%= paginate @categories %> </div>
+  
