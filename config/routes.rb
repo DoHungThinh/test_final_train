@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
-  resources :products
-  root 'static#home'
-  get 'static/home'
-
-  get 'static/about'
-
+  resources :categories
   devise_for :users
+  resources :products do
+    resources :comments
+  end
+  root 'products#index'
+  get 'user/my_products' => 'products#my_products'
+  resources :users, only: [:show]
+  resources :admins, only: [:index]
+  get 'admins/list_user'
+  get 'admins/disable_user', as: :disable_user
+  get 'admins/active_user', as: :active_user
+  get 'admins/delete_user', as: :delete_user
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

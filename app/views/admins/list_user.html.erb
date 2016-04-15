@@ -1,0 +1,10 @@
+<% @users.each do |user| %>
+<%= user.name %>
+<p>State: <%= user.is_active %> </p>
+  <div class="btn-group">
+  	<%= link_to "Disable",disable_user_path(user: user.id),class: "btn btn-warning" %>
+    <%= link_to "Active",active_user_path(user: user.id),class: "btn btn-success" %>
+    <%= link_to "Cancel this account", delete_user_path(user: user.id),class: "btn btn-danger" %>
+   </div>
+   </br>
+<% end %>

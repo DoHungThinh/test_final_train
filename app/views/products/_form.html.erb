@@ -1,0 +1,34 @@
+<%= simple_form_for @product, html: {multipart: true,class: 'form-horizontal' },
+ wrapper: :horizontal_form,
+  wrapper_mappings: {
+    check_boxes: :horizontal_radio_and_checkboxes,
+    radio_buttons: :horizontal_radio_and_checkboxes,
+    file: :horizontal_file_input,
+    boolean: :horizontal_boolean
+    } do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :title, label: 'Title For Product'%>
+  <%= f.input :description, as: :text, label: 'Description' %>
+  <%= f.input :price, :hint => "prices should be in USD" %>
+  <%= f.association :category, conllection: @categories, promp: "Choose the category" %>
+  <%= file_field_tag "images[]", type: :file, multiple: true,class: "file_product" %>
+  <div class="state">
+  <% if current_user == @product.user %>
+    <%= f.label :state%>
+    <%= f.select :state, [['Active', true], ['Inactive', false]] %>
+  <% end %>
+  </div>
+  <div class="buttons">
+  <%= f.button :submit %>
+  </div>
+<% end %>
