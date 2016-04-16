@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:show,:new, :edit, :create, :update, :destroy, :my_products]
   before_action :own_product, only: [:edit, :update, :destroy]
   def index
@@ -7,6 +7,8 @@ class ProductsController < ApplicationController
     @categories = Category.all
   end
   def show
+    @product = Product.includes(:pictures).find(params[:id])
+    @pictures = @product.pictures
   end
   def my_products
     @products = current_user.products.includes(:pictures).all
@@ -17,11 +19,16 @@ class ProductsController < ApplicationController
   def new
     @product = current_user.products.build
     @categories = Category.all
+    3.times do
+    @product.pictures.build
+    end
   end
 
   # GET /products/1/edit
   def edit
+    3.times { @product.pictures.build } # ... and this
     @categories = Category.all
+
   end
 
   # POST /products
@@ -31,11 +38,6 @@ class ProductsController < ApplicationController
     @product.category_id = params[:category_id]
       respond_to do |format|
       if @product.save
-        if params[:images]
-          params[:images].each { |image|
-            @product.pictures.create(image: image)
-        }
-        end
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
@@ -85,7 +87,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :price, :category_id,:state,:pictures)
+      params.require(:product).permit(:title, :description, :price, :category_id,:state,:pictures_attributes => [:image])
     end
     def own_product
       if current_user.present?

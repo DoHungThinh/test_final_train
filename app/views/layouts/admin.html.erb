@@ -19,34 +19,33 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3" id="sidebar">
-				<ul>
+			<ul>
 				<li class="round-image-50 rounded_image"><%= image_tag(current_user.avatar.url(:thumb))%></li>
-				</ul>
-				<ul>
-					<li class="category">Product</li>
-					<li><%= link_to "Product", admins_path %></li>
-					<li><%= link_to 'New Product', new_product_path %></li>
-				</ul>
-
-				<ul>
-					<li class="category">Category</li>
-					<li><%= link_to 'Category', categories_path %></li>
-					<li><%= link_to 'New Category', new_category_path %></li>
-					<li><a href="https://github.com/mackenziechild">Github</a></li>
-					<li><a href="mailto:hey@mackenziechild.me">Email</a></li>
-				</ul>
-				<ul>
-					<li class="category">User Active </li>
-					<li><%= link_to 'List_User', admins_list_user_path %> </li>
-				</ul>
+			</ul>
+			<ul>
+				<li class="category">Product</li>
+				<li><%= link_to "Product", admins_path %></li>
+				<li><%= link_to 'New Product', new_product_path %></li>
+			</ul>
+			<ul>
+				<li class="category">Category</li>
+				<li><%= link_to 'Category', categories_path %></li>
+				<li><%= link_to 'New Category', new_category_path %></li>
+				<li><a href="https://github.com/mackenziechild">Github</a></li>
+				<li><a href="mailto:hey@mackenziechild.me">Email</a></li>
+			</ul>
+			<ul>
+				<li class="category">User Active </li>
+				<li><%= link_to 'List_User', admins_list_user_path %> </li>
+			</ul>
 				<% if !user_signed_in? %>
 					<p class="sign_in"><%= link_to "Admin Login", new_user_session_path %></p>
 				<% end %>
 		</div>
-		 <div class="col-md-9" id="main_content">
+		<div class="col-md-9" id="main_content">
 			<%= yield %>
-		 </div>	
-		</div>
+		</div>	
+	</div>
 </div>
 </body>
 </html>

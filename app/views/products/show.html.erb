@@ -1,8 +1,15 @@
+<div class= "row">
+        <% @pictures.each do |p| %>
+        <div class="col-md-4">
+        <div class="thumbnail">
+        <%= image_tag p.image.url(:large) %>
+        </div>
+        </div>
+        <% end %>
+</div>
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-4">
-        <%= image_tag @product.pictures.first.image.url(:large) %>
         <div class="table-responsive">
           <table class="table">
             <tbody>
@@ -14,20 +21,22 @@
                 <td><strong>Price:</strong></td>
                 <td><%= @product.price %>$</td>
               </tr>
+              <tr>
+                <td><strong>Description</strong></td>
+                <td><%= @product.description %></td>
+              </tr>
+              <tr>
+              <td><strong>Author:  </strong><%= @product.user.name %></td>
+              <td><li class="round-image-50"><%= link_to image_tag(@product.user.avatar.url(:thumb)), user_path(@product.user) %></li></td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="col-md-7 col-md-offset-1">
-      <strong>Description</strong>
-      <p><%= @product.description %></p>
-      <div>
- 		<li class="round-image-50"><%= link_to image_tag(@product.user.avatar.url(:thumb)), user_path(@product.user) %></li>	
-    <p><%= @product.user.name %></p>
-     	</div>
-      </div>
-    </div>
-  </div>
+  	</div>
+    <%= render 'back_delete' %>
+</div>
+  
 
   <div id="comments">
     <h2><%= @product.comments.count %> Comments</h2>
@@ -36,13 +45,4 @@
     <h3>Add a comment:</h3>
     <%= render "comments/form" %>
   </div>
-  <%if current_user==@product.user|| current_user.admin? %>
-    <%= link_to 'Edit', edit_product_path(@product) %> |
-    <%= link_to 'Delete', product_path(@product), method: :delete, data: {confirm: "Are you sure?"} %>
-  <% end %>
-  <% if current_user.admin? %>
-    <%= link_to 'Back', admins_path %>
-  <% else %>
-    <%= link_to 'Back', products_path %>
-  <% end %>
 </div>

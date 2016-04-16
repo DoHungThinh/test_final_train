@@ -1,0 +1,9 @@
+<%if current_user==@product.user|| current_user.admin? %>
+    <%= link_to 'Edit', edit_product_path(@product) %> |
+    <%= link_to 'Delete', product_path(@product), method: :delete, data: {confirm: "Are you sure?"} %> |
+<% end %>
+<% if current_user.admin? %>
+    <%= link_to 'Back', admins_path %>
+<% else %>
+    <%= link_to 'Back', products_path %>
+<% end %> 

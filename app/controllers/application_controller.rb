@@ -12,9 +12,8 @@ def after_sign_in_path_for(resource)
   end
 end
    protected
-
     def configure_permitted_parameters
         devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password) }
-        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :is_female, :date_of_birth, :avatar) }
+        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :is_female, :date_of_birth, :avatar, :age, :basic_info, :address) }
     end
 end
