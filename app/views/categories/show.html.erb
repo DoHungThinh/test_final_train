@@ -1,11 +1,13 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @category.name %>
-  <%= image_tag @category.image.url(:medium) %>
-</p>
-
+<div class="row">
+	<div class="col-md-6">
+  		<strong>Name of Category:</strong>
+  		<p><%= @category.name %></p>
+ 	</div>
+ 	<div class="col-md-6">
+  		<%= image_tag @category.image.url(:medium) %>
+  	</div>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
+</div>
