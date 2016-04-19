@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
   resources :categories
   devise_for :users
+  get 'users/conversations/:id' => 'conversations#show'
+  # unauthenticated :user do
+  #   devise_scope :user do
+  #     get "/" => "devise/sessions#new"
+  #   end
+  # end
+  root 'products#index'
+  resources :conversations do
+    resources :messages
+  end
   resources :products do
     resources :comments
   end
-  root 'products#index'
   get 'user/my_products' => 'products#my_products'
-  resources :users, only: [:show]
+  resources :users, only: [:show,:index]
   resources :admins, only: [:index]
   get 'admins/list_user'
   get 'admins/disable_user', as: :disable_user
