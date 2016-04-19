@@ -2,7 +2,7 @@
  <% @products.each do |product| %>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-       <% if product.pictures.first %>
+       <% if product.pictures.first.present? %>
         <%= link_to (image_tag (product.pictures.first.image.url(:medium)), class: 'image'), product_path(product) %>
         <% else %>
           <%= link_to 'N/A', product_path(product) %>

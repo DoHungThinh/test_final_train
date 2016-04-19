@@ -12,6 +12,12 @@ class AdminsController < ApplicationController
 	def disable_user
 		if @user.is_active?
 			@user.is_active = false
+			Product.transaction do
+				@user.products.each do |p|
+					p.state = false
+					p.save
+				end
+			end
 			@user.save
 		end
 		redirect_to admins_list_user_path
@@ -19,6 +25,12 @@ class AdminsController < ApplicationController
 	def active_user
 		if !@user.is_active?
 			@user.is_active = true
+			Product.transaction do
+				@user.products.each do |p|
+					p.state = true
+					p.save
+				end
+			end
 			@user.save
 		end
 		redirect_to admins_list_user_path
@@ -34,7 +46,7 @@ class AdminsController < ApplicationController
 		end
 	end
 	 def set_product
-      @user = User.find(params[:user])
+      @user = User.includes(:products).find(params[:user])
     end
 
 end

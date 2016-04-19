@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-has_many :products
+has_many :products, dependent: :destroy
 has_attached_file :image, styles: { medium: "350x400", large: "350x400#" }
 validates_attachment :image, presence: true,
   content_type: { content_type: ["image/jpeg","image/png"] },

@@ -32,7 +32,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = current_user.products.new(product_params)
-    @product.category_id = params[:category_id]
       respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -47,8 +46,6 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        @product.category_id = params[:category_id]
-        @product.save
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
