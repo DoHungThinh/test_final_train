@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit,:update, :destroy]
+  before_action :add_image_without, only: [:edit]
   before_action :authenticate_user!, only: [:show,:new, :edit, :create, :update, :destroy, :my_products]
   before_action :own_product, only: [:edit, :update, :destroy]
   def index
@@ -24,15 +25,11 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1/edit
   def edit
-    3.times { @product.pictures.build } # ... and this
     @categories = Category.all
 
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = current_user.products.new(product_params)
     @product.category_id = params[:category_id]
@@ -47,19 +44,11 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
       if @product.update(product_params)
         @product.category_id = params[:category_id]
         @product.save
-        if params[:images]
-        #===== The magic is here ;)
-        params[:images].each { |image|
-          @product.pictures.create(image: image)
-        }
-      end
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
@@ -69,8 +58,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
+
   def destroy
     @product.destroy
     respond_to do |format|
@@ -87,13 +75,26 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :price, :category_id,:state,:pictures_attributes => [:image])
+      params.require(:product).permit(:title, :description, :price, :category_id,:state,:pictures_attributes => [:id,:image,:_destroy])
     end
     def own_product
       if current_user.present?
         if !(@product.user == current_user)&& !current_user.admin?
           redirect_to products_path
         end
+      end
+    end
+    def add_image_without
+      if @product.pictures.size ==0 
+        3.times do
+          @product.pictures.build
+        end
+      elsif @product.pictures.size ==1
+        2.times do
+          @product.pictures.build
+        end
+      elsif @product.pictures.size ==2
+        @product.pictures.build
       end
     end
 end

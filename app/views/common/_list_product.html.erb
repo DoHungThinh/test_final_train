@@ -5,7 +5,7 @@
        <% if product.pictures.first %>
         <%= link_to (image_tag (product.pictures.first.image.url(:medium)), class: 'image'), product_path(product) %>
         <% else %>
-          NA
+          <%= link_to 'N/A', product_path(product) %>
         <% end %>
       </div>
     </div>

@@ -22,10 +22,8 @@
   <%= f.input :price, :hint => "prices should be in USD" %>
   <%= f.association :category, conllection: @categories, promp: "Choose the category" %>
    <%= f.fields_for :pictures do |ff| %>
-      <% if ff.object.new_record? %>
         <%= ff.label :image, "Image File" %>
         <%= ff.file_field :image %>
-      <% end %>
    <% end %> 
   <div class="state">
   <% if current_user == @product.user %>
