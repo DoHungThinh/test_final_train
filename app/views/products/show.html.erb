@@ -27,7 +27,11 @@
               </tr>
               <tr>
                 <td><strong>Category</strong></td>
+                <% if @product.category.present? %>
                 <td><%= @product.category.name %></td>
+                <% else %>
+                <td></td>
+                <% end %> 
               </tr>
               <tr>
               <td><strong>Author:  </strong><%= @product.user.name %></td>
