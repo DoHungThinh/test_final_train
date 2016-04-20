@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   resources :categories
   devise_for :users
   get 'users/conversations/:id' => 'conversations#show'
-  # unauthenticated :user do
-  #   devise_scope :user do
-  #     get "/" => "devise/sessions#new"
-  #   end
-  # end
+  get 'products/show_products/:id' => 'products#show_products', as: :show_products
   root 'products#index'
   resources :conversations do
     resources :messages

@@ -1,0 +1,3 @@
+<% @category.products.each do |p| %>
+<%= image_tag(p.pictures.first.image.url(:medium)) %>
+<% end %>

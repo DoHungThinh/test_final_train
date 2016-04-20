@@ -10,7 +10,7 @@
 			<h1>Categories Listing</h1>
 			<%@categories.each do |c| %>
 				<ul>
-				<li><%= link_to "#{c.name}",c %></li>
+				<li><%= link_to "#{c.name}", show_products_path(c) %></li>
 				</ul>
 			<% end %>
 	</div>

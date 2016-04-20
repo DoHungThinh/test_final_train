@@ -7,15 +7,21 @@ class ProductsController < ApplicationController
     @products = Product.includes(:pictures).all.where(state:true).page params[:page]
     @categories = Category.all
   end
+
   def show
     @product = Product.includes(:pictures).find(params[:id])
     @pictures = @product.pictures
   end
+
   def my_products
     @products = current_user.products.includes(:pictures).all
   end
+
   def category_products
     @categories = Category.includes(:products).all
+  end
+   def show_products
+    @category = Category.includes(:products).find(params[:id])
   end
   def new
     @product = current_user.products.build

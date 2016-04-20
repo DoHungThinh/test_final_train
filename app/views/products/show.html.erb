@@ -26,6 +26,10 @@
                 <td><%= @product.description %></td>
               </tr>
               <tr>
+                <td><strong>Category</strong></td>
+                <td><%= @product.category.name %></td>
+              </tr>
+              <tr>
               <td><strong>Author:  </strong><%= @product.user.name %></td>
               <td><li class="round-image-50"><%= link_to image_tag(@product.user.avatar.url(:thumb)), user_path(@product.user) %></li></td>
               </tr>
